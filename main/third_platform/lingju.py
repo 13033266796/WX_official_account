@@ -139,11 +139,11 @@ class ParseLingJuMixin(object):
         return answer
 
 
-parse_lingju = ParseLingJuMixin()
+lingju_robot = ParseLingJuMixin()
 
 
 if __name__ == "__main__":
     import asyncio
     loop = asyncio.get_event_loop()
     # loop.run_until_complete(parse_lingju.get_lingju(text="你是谁？"))
-    loop.run_until_complete(parse_lingju.parse_lingju(text="别生气"))
+    loop.run_until_complete(lingju_robot.parse_lingju(text="别生气"))

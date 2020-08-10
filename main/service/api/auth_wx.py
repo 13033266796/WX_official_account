@@ -1,5 +1,7 @@
-from flask import jsonify
-TOKEN = 'XXXXXXXX'
+from flask import jsonify, Response
+import hashlib
+
+TOKEN = '15297840370'
 
 
 def check_wx_offical(data):
@@ -12,8 +14,10 @@ def check_wx_offical(data):
     sha1_ = sorted(sha1_)
     sha1_ = "".join(sha1_)
 
+    sha1_ = hashlib.sha1(sha1_.encode('utf-8'))
+    sha1_ = sha1_.hexdigest()
     if sha1_ == signature:
-        return jsonify({'echostr': echostr})
-    
+        return Response(echostr, status=200, mimetype="application/json")
+ 
     return None
 

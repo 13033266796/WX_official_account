@@ -15,7 +15,7 @@ def register_api(app):
             version='1.0',
             title='New Api',
           )
-    api.add_namespace(auth_wx_ns, path="/wx")
+    api.add_namespace(auth_wx_ns, path="/")
     api.add_namespace(message_wx_ns, path="/callback")
 
 

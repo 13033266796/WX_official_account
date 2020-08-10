@@ -5,8 +5,8 @@ from wechatpy.replies import TextReply
 
 from main.store.mcredis import mc
 
-class WeChatCliet(object):
-    def __init__(self, reids):
+class WeChatClient(object):
+    def __init__(self, redis):
         self.mc = redis
         pass
 
@@ -28,7 +28,7 @@ class WeChatCliet(object):
             return False
 
         else:
-            self.mc._save_message(message.id):
+            self.mc._save_message(message.id)
             return True
 
     def reply_message(self, to_open_message, msg):

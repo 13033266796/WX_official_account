@@ -2,7 +2,7 @@ import json
 
 from redis import StrictRedis
 
-REDIS_URI = 'redis://127.0.0.1:6379/0'
+REDIS_URI = 'redis://172.17.0.1:6379/0'
 
 class McRedis(object):
     MESSAGE_ID_KEY = "OnlyU:{open_id}:message_id"
