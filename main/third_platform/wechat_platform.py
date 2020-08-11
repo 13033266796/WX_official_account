@@ -1,6 +1,6 @@
 from wechatpy.utils import check_signature
 from wechatpy.exceptions import InvalidSignatureException
-from wechatpy import parse_message
+from wechatpy import parse_message 
 from wechatpy.replies import TextReply
 
 from main.store.mcredis import mc
@@ -12,7 +12,7 @@ class WeChatClient(object):
 
     def message_parse(self, xml_message):
         """消息解析"""
-        message = prase_message(xml_message)
+        message = parse_message(xml_message)
         return message
 
     def message_distinct(self, message):
@@ -31,12 +31,12 @@ class WeChatClient(object):
             self.mc._save_message(message.id)
             return True
 
-    def reply_message(self, to_open_message, msg):
+    def reply_message(self, source, target, to_open_message, msg):
         """
         :param to_open_messgae 要回复给访客的消息
         :param msg 收到的消息解析后保存在msg
         """
-        reply = TextReply(content=to_open_message, message=msg)
+        reply = TextReply(type='text', source=target, target=source, content=to_open_message, message=msg)
         # 转换成 XML
         xml = reply.render()
         return xml

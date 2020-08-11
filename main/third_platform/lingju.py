@@ -67,7 +67,8 @@ class ParseLingJuMixin(object):
                 logger.info("获取灵聚机器人accesToken出错： {}".format(e))
                 raise
 
-    async def get_lingju(self, text='', uid='', loc='', post=None):
+    # async def get_lingju(self, text='', uid='', loc='', post=None):
+    def get_lingju(self, text='', uid='', loc='', post=None):
         """
         请求灵聚机器人
         """
@@ -81,34 +82,36 @@ class ParseLingJuMixin(object):
             logger.info("调用灵聚机器人api")
 
             try:
-                # res = await trequests.post(url='{}/{}'.format(self.API_URL, 'ljchat.do'),
-                #                            headers={'Content-Type': 'application/json;charset=UTF-8'},
-                #                            json=post_data, timeout=10)
+                res = requests.post(url='{}/{}'.format(self.API_URL, 'ljchat.do'),
+                                    headers={'Content-Type': 'application/json;charset=UTF-8'},
+                                    json=post_data, timeout=10)
                 print(type(post_data))
-                async with aiohttp.ClientSession() as client:
-                    res = await client.post(url='{}/{}'.format(self.API_URL, 'ljchat.do'),
-                                            headers={'Content-Type': 'application/json;charset=UTF-8'},
-                                            json=post_data, timeout=10)
+                # async with aiohttp.ClientSession() as client:
+                #     res = await client.post(url='{}/{}'.format(self.API_URL, 'ljchat.do'),
+                #                             headers={'Content-Type': 'application/json;charset=UTF-8'},
+                #                             json=post_data, timeout=10)
             except Exception as e:
                 logger.info("访问灵聚机器人出错 {}".format(str(e)))
                 logger.info(traceback.format_exc())
                 return 408, 'error', '超时'
 
             result = res.json()
-            logger.info("状态码： {}， 状态： {}， 结果： {}".format(res.status, '', result))
-            return res.status, '', result
+            # logger.info("状态码： {}， 状态： {}， 结果： {}".format(res.status, '', result))
+            return res.status_code, '', result
         except Exception as e:
             logger.info("调用灵聚机器人api出错： {}".format(e))
             logger.info(traceback.format_exc())
             return 404, 'error', '调用灵聚机器人api出错'
 
-    async def parse_lingju(self, text='', uid='', loc='', post=None):
+    # async def parse_lingju(self, text='', uid='', loc='', post=None):
+    def parse_lingju(self, text='', uid='', loc='', post=None):
         """
         对灵聚机器人的返回结果进行解析, 返回一个文本答案
         """
-        status, reason, result = await self.get_lingju(text=text, uid=uid, loc=loc, post=post)
+        # status, reason, result = await self.get_lingju(text=text, uid=uid, loc=loc, post=post)
+        status, reason, result = self.get_lingju(text=text, uid=uid, loc=loc, post=post)
         if status == 200:
-            result = await result
+            # result = await result
             code = result.get('status')
             logger.info("请求灵聚机器人结果：{}".format(self.LINGJU_CODE_MAP[str(code)]))
             if code == 0:
@@ -136,6 +139,7 @@ class ParseLingJuMixin(object):
 
         # print("解析结果：{}".format(answer))
         logger.info("解析结果：{}".format(answer))
+        print(f"/**/*/{answer}*/*/*/*/*/")
         return answer
 
 

@@ -19,6 +19,4 @@ class AuthWxApi(Resource):
 
     def post(self):
         print("收到wx推送消息")
-        print(request.json)
-        print(request.args)
-        return send_to_lingju(request.json)
+        return send_to_lingju(request.data)
